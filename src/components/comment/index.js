@@ -1,23 +1,23 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red, orange, purple, pink, green } from '@material-ui/core/colors';
-import ReplyIcon from '@material-ui/icons/Reply';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import './style.css';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import { red, orange, purple, pink, green } from "@material-ui/core/colors";
+import ReplyIcon from "@material-ui/icons/Reply";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import "./style.css";
 
 const useStyles = makeStyles((theme) => ({
   main: {
     margin: 10,
-    border: '1px solid #dddf',
+    border: "1px solid #dddf",
   },
 }));
 
@@ -33,9 +33,12 @@ const Comment = (props) => {
   const [vote, setVote] = React.useState(props.userVoted);
   const bgcolor = React.useRef(getRandomColor()).current;
 
+  const toggleReply = () => {
+    // WE NEED TO WORK IN THIS FUNCTION
+  };
   const onReply = () => {
     // Handle reply here
-    console.log('Reply button clicked!');
+    console.log("Reply button clicked!");
   };
 
   const onUpvote = () => {
@@ -69,7 +72,7 @@ const Comment = (props) => {
       <CardActions disableSpacing>
         <Tooltip title="Upvote" aria-label="upvote">
           <IconButton aria-label="upvote" onClick={onUpvote}>
-            <ThumbUpIcon color={vote === 1 ? 'primary' : 'inherit'} />
+            <ThumbUpIcon color={vote === 1 ? "primary" : "inherit"} />
           </IconButton>
         </Tooltip>
         <Typography variant="body2" color="textSecondary" component="p">
@@ -77,7 +80,7 @@ const Comment = (props) => {
         </Typography>
         <Tooltip title="Downvote" aria-label="downvote">
           <IconButton aria-label="downvote" onClick={onDownvote}>
-            <ThumbDownIcon color={vote === -1 ? 'primary' : 'inherit'} />
+            <ThumbDownIcon color={vote === -1 ? "primary" : "inherit"} />
           </IconButton>
         </Tooltip>
         <Typography variant="body1" color="textSecondary" component="p">
@@ -85,7 +88,7 @@ const Comment = (props) => {
         </Typography>
         <div className="actions">
           <Tooltip aria-label="reply" title="Reply">
-            <IconButton aria-label="reply" onClick={onReply}>
+            <IconButton aria-label="reply" onClick={toggleReply}>
               <ReplyIcon fontSize="large" />
             </IconButton>
           </Tooltip>
