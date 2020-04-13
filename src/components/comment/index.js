@@ -7,11 +7,15 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { red, orange, purple, pink, green } from "@material-ui/core/colors";
 import ReplyIcon from "@material-ui/icons/Reply";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import CancelIcon from "@material-ui/icons/Cancel";
+import Collapse from "@material-ui/core/Collapse";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import "./style.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,14 +35,12 @@ const getRandomColor = () => {
 const Comment = (props) => {
   const classes = useStyles();
   const [vote, setVote] = React.useState(props.userVoted);
+  const [expanded, setExpanded] = React.useState(false);
   const bgcolor = React.useRef(getRandomColor()).current;
 
-  const toggleReply = () => {
-    // WE NEED TO WORK IN THIS FUNCTION
-  };
   const onReply = () => {
     // Handle reply here
-    console.log("Reply button clicked!");
+    alert("Reply button clicked!");
   };
 
   const onUpvote = () => {
@@ -49,6 +51,11 @@ const Comment = (props) => {
   const onDownvote = () => {
     // Handle downvote here
     setVote(vote === -1 ? 0 : -1);
+  };
+
+  const handleReplyClick = () => {
+    setExpanded(!expanded);
+    console.log(expanded);
   };
 
   return (
@@ -88,12 +95,38 @@ const Comment = (props) => {
         </Typography>
         <div className="actions">
           <Tooltip aria-label="reply" title="Reply">
-            <IconButton aria-label="reply" onClick={toggleReply}>
+            <IconButton aria-label="reply" onClick={handleReplyClick}>
               <ReplyIcon fontSize="large" />
             </IconButton>
           </Tooltip>
         </div>
       </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <TextareaAutosize
+          aria-label="empty textarea for reply"
+          rowsMin={3}
+          rowsMax={6}
+          placeholder="Reply"
+        />
+        <CardActions className="actions" disableSpacing>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<CancelIcon />}
+            onClick={handleReplyClick}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<ReplyIcon />}
+            onClick={onReply}
+          >
+            Reply
+          </Button>
+        </CardActions>
+      </Collapse>
     </Card>
   );
 };
