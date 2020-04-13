@@ -16,6 +16,7 @@ import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import CancelIcon from "@material-ui/icons/Cancel";
 import Collapse from "@material-ui/core/Collapse";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import { positions } from "@material-ui/system";
 import "./style.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 10,
     border: "1px solid #dddf",
   },
+  ,
 }));
 
 // Generate random color for avatar
@@ -102,11 +104,16 @@ const Comment = (props) => {
         </div>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <TextareaAutosize
+        <TextField
           aria-label="empty textarea for reply"
           rowsMin={3}
           rowsMax={6}
           placeholder="Reply"
+          multiline
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          id="text123"
         />
         <CardActions className="actions" disableSpacing>
           <Button
@@ -114,14 +121,19 @@ const Comment = (props) => {
             color="primary"
             startIcon={<CancelIcon />}
             onClick={handleReplyClick}
+            className={classes.button}
+            id="cancelAlign"
           >
             Cancel
           </Button>
           <Button
+            positive
             variant="contained"
             color="primary"
             startIcon={<ReplyIcon />}
             onClick={onReply}
+            id="replyalign"
+            width="100%"
           >
             Reply
           </Button>

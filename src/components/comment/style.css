@@ -5,3 +5,19 @@
 .actions {
   margin-left: auto;
 }
+#replyalign {
+  position: relative;
+  left: 850px;
+  width: 100px;
+  padding: 10px;
+}
+#cancelAlign {
+  position: relative;
+  left: 1060px;
+  width: 100px;
+  padding: 10px;
+}
+#text123 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
