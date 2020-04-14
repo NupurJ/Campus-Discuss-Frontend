@@ -3,14 +3,23 @@ import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import { makeStyles } from "@material-ui/core/styles";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { withStyles } from "@material-ui/core/styles";
 import "./style.css";
 
+const styles = {
+  root: {
+    minWidth: 40,
+    color: "black",
+  },
+};
 function Profile(props) {
   // AccountCircleIcon can be replaced by Avatar when we add Profile Picture functionality
   return (
-    <Button color="primary" startIcon={<AccountCircleIcon />}>
+    <Button color="primary" startIcon={<AccountCircleIcon />} fullWidth>
       {props.name}
     </Button>
   );
@@ -18,8 +27,15 @@ function Profile(props) {
 
 function StreamItem(props) {
   return (
-    <ListItem button onClick={() => alert("clicked " + props.streamName)}>
-      {props.streamName}
+    <ListItem
+      button
+      className={styles.root}
+      onClick={() => alert("clicked " + props.streamName)}
+    >
+      <ListItemIcon className={styles.root}>
+        <ChevronRightIcon />
+      </ListItemIcon>
+      <ListItemText primary={props.streamName} />
     </ListItem>
   );
 }

@@ -15,8 +15,11 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import CancelIcon from "@material-ui/icons/Cancel";
 import Collapse from "@material-ui/core/Collapse";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import { positions } from "@material-ui/system";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 import "./style.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     margin: 10,
     border: "1px solid #dddf",
   },
-  ,
 }));
 
 // Generate random color for avatar
@@ -38,10 +40,11 @@ const Comment = (props) => {
   const classes = useStyles();
   const [vote, setVote] = React.useState(props.userVoted);
   const [expanded, setExpanded] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const bgcolor = React.useRef(getRandomColor()).current;
 
   const onReply = () => {
-    // Handle reply here
+    // Handle submit reply here
     alert("Reply button clicked!");
   };
 
@@ -55,9 +58,18 @@ const Comment = (props) => {
     setVote(vote === -1 ? 0 : -1);
   };
 
-  const handleReplyClick = () => {
+  const toggleReplyBox = () => {
+    // handle reply icon clicked here
     setExpanded(!expanded);
-    console.log(expanded);
+  };
+  const handleCancelClose = () => {
+    setOpen(false);
+    console.log("close " + open);
+  };
+
+  const handleCancelOpen = () => {
+    setOpen(true);
+    console.log("open " + open);
   };
 
   return (
@@ -97,46 +109,77 @@ const Comment = (props) => {
         </Typography>
         <div className="actions">
           <Tooltip aria-label="reply" title="Reply">
-            <IconButton aria-label="reply" onClick={handleReplyClick}>
+            <IconButton aria-label="reply" onClick={toggleReplyBox}>
               <ReplyIcon fontSize="large" />
             </IconButton>
           </Tooltip>
         </div>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <TextField
-          aria-label="empty textarea for reply"
-          rowsMin={3}
-          rowsMax={6}
-          placeholder="Reply"
-          multiline
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="text123"
-        />
-        <CardActions className="actions" disableSpacing>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<CancelIcon />}
-            onClick={handleReplyClick}
-            className={classes.button}
-            id="cancelAlign"
-          >
-            Cancel
-          </Button>
-          <Button
-            positive
-            variant="contained"
-            color="primary"
-            startIcon={<ReplyIcon />}
-            onClick={onReply}
-            id="replyalign"
-            width="100%"
-          >
-            Reply
-          </Button>
+        <div id="text-box">
+          <TextField
+            aria-label="empty textarea for reply"
+            rowsMin={3}
+            rowsMax={6}
+            placeholder="Reply"
+            multiline
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="textbox"
+          />
+        </div>
+        <CardActions>
+          <div className="actions">
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<CancelIcon />}
+              onClick={handleCancelOpen}
+              className={classes.button}
+              id="cancelAlign"
+            >
+              Cancel
+            </Button>
+            <Button
+              positive
+              variant="contained"
+              color="primary"
+              startIcon={<ReplyIcon />}
+              onClick={() => {
+                onReply();
+                toggleReplyBox();
+              }}
+              id="replyalign"
+            >
+              Reply
+            </Button>
+            <Dialog
+              open={open}
+              onClose={handleCancelClose}
+              aria-labelledby="draggable-dialog-title"
+            >
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to discard the reply?
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button autoFocus onClick={handleCancelClose} color="primary">
+                  No
+                </Button>
+                <Button
+                  onClick={() => {
+                    handleCancelClose();
+                    toggleReplyBox();
+                  }}
+                  color="primary"
+                >
+                  Yes
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </div>
         </CardActions>
       </Collapse>
     </Card>

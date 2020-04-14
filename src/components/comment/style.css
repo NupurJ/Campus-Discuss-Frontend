@@ -1,3 +1,4 @@
+  
 .header {
   background-color: rgb(236, 240, 241);
 }
@@ -6,18 +7,16 @@
   margin-left: auto;
 }
 #replyalign {
-  position: relative;
-  left: 850px;
-  width: 100px;
-  padding: 10px;
+  margin-right: 20px;
 }
 #cancelAlign {
-  position: relative;
-  left: 1060px;
-  width: 100px;
-  padding: 10px;
+  margin-right: 20px;
 }
-#text123 {
+#text-box-container {
+  margin-left: 10px;
+  margin-right: 10p;
+}
+#text-box {
   padding-left: 10px;
   padding-right: 10px;
 }
